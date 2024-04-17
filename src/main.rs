@@ -1,12 +1,10 @@
 use reqwest::blocking::Client;
 use rand::distributions::{Alphanumeric, Distribution, Uniform};
 use rand::{thread_rng, Rng};
-use std::thread::sleep; These are incase we want to add a timeout
+use std::thread::sleep;
 use std::time::Duration;
 use std::fs::File;
 use std::io::Write;
-use std::thread::sleep;
-use std::time::Duration; 
 
 fn generate_random_string(length: usize) -> String {
     thread_rng()
