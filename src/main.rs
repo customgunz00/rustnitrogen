@@ -18,9 +18,11 @@ fn generate_random_number(min: i32, max: i32) -> i32 {
     return num;
 }
 
-fn makereq(cli: Client) -> Result<(), reqwest::Error> {
+fn makereq(cli: Client, filename: &str) -> Result<(), reqwest::Error> {
     let rn = generate_random_number(13, 24);
     let rs = generate_random_string(rn as usize);
+
+    let mut file = File::open(filename).unwrap();
 
     let url = "https://discord.com/api/v8/entitlements/gift-codes/";
 
@@ -34,6 +36,7 @@ fn makereq(cli: Client) -> Result<(), reqwest::Error> {
         println!("Waiting for 7.5 seconds... | RATE LIMITED");
     } else if response.status() == reqwest::StatusCode::OK {
         println!("{} | CODE VALID", rs);
+        file.write(rs.as_bytes());
     }
     
     Ok(())
@@ -43,5 +46,7 @@ fn makereq(cli: Client) -> Result<(), reqwest::Error> {
 fn main() {
     let client: Client = Client::new();
 
-    makereq(client);
+    loop {
+        makereq(client.clone(), "codes.txt");
+    }
 }
