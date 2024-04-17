@@ -4,7 +4,6 @@ use rand::{thread_rng, Rng};
 
 fn main() -> Result<(), reqwest::Error> {
     let client = Client::new();
-    let mut response = client.get("https://example.com").send()?;
 
     fn generate_random_string(length: usize) -> String {
         thread_rng()
@@ -19,11 +18,17 @@ fn main() -> Result<(), reqwest::Error> {
         return num;
     }
 
-    let rn = generate_random_number(1, 100);
+    let rn = generate_random_number(13, 24);
     let rs = generate_random_string(rn as usize);
 
-    println!("{}", rn);
-    println!("{}", rs);
+    let url = "https://discord.com/api/v8/entitlements/gift-codes/";
+
+    let finished_url = format!("{}{}", url, rs);
+
+    let response = client.get(finished_url).send()?;
+
+    println!("Status: {}", response.status());
+    println!("Code: {}", rs);
 
     Ok(())
 }
