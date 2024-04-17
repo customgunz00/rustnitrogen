@@ -1,10 +1,12 @@
 use reqwest::blocking::Client;
 use rand::distributions::{Alphanumeric, Distribution, Uniform};
 use rand::{thread_rng, Rng};
-use std::thread::sleep;
+use std::thread::sleep; These are incase we want to add a timeout
 use std::time::Duration;
 use std::fs::File;
-use std::io::Write; 
+use std::io::Write;
+use std::thread::sleep;
+use std::time::Duration; 
 
 fn generate_random_string(length: usize) -> String {
     thread_rng()
@@ -33,10 +35,9 @@ fn makereq(cli: Client, filename: &str) -> Result<(), reqwest::Error> {
 
     if response.status() == reqwest::StatusCode::NOT_FOUND {
         println!("{} | CODE INVALID", rs);
-        sleep(Duration::from_millis(150));
     } else if response.status() == reqwest::StatusCode::TOO_MANY_REQUESTS {
         println!("Waiting... | RATE LIMITED");
-        sleep(Duration::from_secs(10));
+        sleep(Duration::from_secs(20));
     } else if response.status() == reqwest::StatusCode::OK {
         println!("{} | CODE VALID", rs);
         file.write(rs.as_bytes());
