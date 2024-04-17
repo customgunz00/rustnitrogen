@@ -1,9 +1,9 @@
 # Rust nitro generator
 Discord nitro code generator written in rust.
 
-> ### Instructions
-> - Extract "nitrogen_win64.zip"
-> - Run rustnitrogen.exe
+### Instructions
+- Extract "nitrogen_win64.zip"
+- Run rustnitrogen.exe
 
 To change the file name of codes.txt:
 - [Install Rust](https://rustup.rs/)
